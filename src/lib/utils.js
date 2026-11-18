@@ -22,3 +22,9 @@ export const flagOf = (r) => {
 
 export const initials = (name) =>
   name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+
+export const fmtDMY = (iso) => (iso ? iso.split('-').reverse().join('-') : '');
+
+export const categoryLabel = (c) => (c === 'Biochemistry' ? 'Bio Chemistry' : c === 'Haematology' ? 'Haematology' : c || 'Investigation');
+
+export const ageSex = (p) => `${p.age}/${p.gender[0]}`;

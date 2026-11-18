@@ -9,8 +9,8 @@ export const initialTests = [
     p('Platelet Count', 'lakh/uL', 1.5, 4.1), p('PCV / Haematocrit', '%', 36, 46), p('MCV', 'fL', 80, 100),
   ] },
   { id: 'T02', code: 'LIPID', name: 'Lipid Profile', fullName: 'Lipid Profile', category: 'Biochemistry', sample: 'Serum (Fasting)', params: [
-    p('Total Cholesterol', 'mg/dL', 125, 200), p('Triglycerides', 'mg/dL', 40, 150), p('HDL Cholesterol', 'mg/dL', 40, 60),
-    p('LDL Cholesterol', 'mg/dL', 50, 100), p('VLDL Cholesterol', 'mg/dL', 5, 30),
+    p('Total : Cholesterol', 'mg/dl', 150, 200), p('Triglycerides', 'mg/dl', 50, 185), p('HDL Cholesterol', 'mg/dl', 30, 60),
+    p('LDL Cholesterol', 'mg/dl', 60, 100), p('VLDL Cholesterol', 'mg/dl', 10, 40),
   ] },
   { id: 'T03', code: 'GLU', name: 'Blood Sugar', fullName: 'Blood Glucose (Fasting / Post-Prandial)', category: 'Biochemistry', sample: 'Plasma', params: [
     p('Fasting Blood Sugar', 'mg/dL', 70, 100), p('Post-Prandial Blood Sugar', 'mg/dL', 70, 140),
@@ -35,7 +35,7 @@ export const initialTests = [
 ];
 
 export const initialPatients = [
-  { id: 'ACL-1001', name: 'Nadeera Rahman', age: 34, gender: 'Female', phone: '9847012345', address: '12/B Lotus Gardens, Kochi', registered: '2026-02-18' },
+  { id: 'ACL-1001', name: 'Nadeera', age: 62, gender: 'Female', phone: '9847012345', address: '12/B Lotus Gardens, Kochi', registered: '2026-02-18' },
   { id: 'ACL-1002', name: 'Arjun Menon', age: 45, gender: 'Male', phone: '9946098765', address: 'Kaippilly House, Thrissur', registered: '2026-03-04' },
   { id: 'ACL-1003', name: 'Sreelakshmi K', age: 29, gender: 'Female', phone: '9895123456', address: 'Rose Villa, Aluva', registered: '2026-04-11' },
   { id: 'ACL-1004', name: 'Mohammed Faisal', age: 52, gender: 'Male', phone: '9744556677', address: 'Marine Drive Apartments, Kochi', registered: '2026-05-02' },
@@ -53,7 +53,7 @@ const findTest = (id) => initialTests.find((t) => t.id === id);
 const mk = (id, patientId, testId, date, values) => {
   const t = findTest(testId);
   return {
-    id, patientId, testId, testName: t.name, date, status: 'Final',
+    id, patientId, testId, testName: t.name, category: t.category, date, status: 'Final',
     results: t.params.map((pa, i) => ({ ...pa, value: String(values[i]) })),
   };
 };
@@ -61,7 +61,7 @@ const mk = (id, patientId, testId, date, values) => {
 export const initialReports = [
   mk('RPT-2001', 'ACL-1001', 'T03', '2026-06-18', [94, 128]),
   mk('RPT-2002', 'ACL-1001', 'T01', '2026-02-18', [11.4, 7200, 4.5, 2.6, 35, 84]),
-  mk('RPT-2003', 'ACL-1001', 'T02', '2026-11-18', [214, 168, 52, 128, 34]),
+  mk('RPT-2003', 'ACL-1001', 'T02', '2026-11-18', [152, 97, 46, 87, 19]),
   mk('RPT-2004', 'ACL-1002', 'T02', '2026-11-12', [238, 196, 38, 160, 39]),
   mk('RPT-2005', 'ACL-1002', 'T03', '2026-08-03', [118, 176]),
   mk('RPT-2006', 'ACL-1003', 'T06', '2026-11-18', [118, 8.2, 2.4]),
@@ -86,12 +86,12 @@ export const initialPending = [
 
 export const initialSettings = {
   labName: 'ASWATHY COMPUTERISED CLINICAL LABORATORY',
-  address: '123 Demo Street, Sample Town, Kerala - 682 000',
-  phone: '+91 98765 43210',
-  email: 'info@aswathylab.example',
-  signatureName: 'Dr. A. Sample, MD (Pathology)',
-  signatureTitle: 'Consultant Pathologist',
-  footer: 'This is a computer generated report. Reference ranges shown are illustrative demo values. Results should be correlated clinically.',
+  address: 'OPP.Telephone Exchange, Yendayar',
+  phone: '6282036963, 9744592400',
+  email: 'aswathyclinicydr@gmail.com',
+  signatureName: 'Lab Technician',
+  signatureTitle: '',
+  footer: '',
 };
 
 export const notifications = [

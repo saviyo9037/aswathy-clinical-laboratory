@@ -4,7 +4,7 @@ import { CheckCircle2, ClipboardEdit, RotateCcw, Save } from 'lucide-react';
 import { useApp } from '../context/AppContext.jsx';
 import PageHeader from '../components/PageHeader.jsx';
 
-const empty = { name: '', age: '', gender: 'Female', phone: '', address: '' };
+const empty = { name: '', age: '', gender: 'Female', phone: '', address: '', doctor: '' };
 
 export default function RegisterPatient() {
   const { addPatient, toast, patients } = useApp();
@@ -57,6 +57,10 @@ export default function RegisterPatient() {
             <label className="label">Phone Number *</label>
             <input className="input" placeholder="10 digit mobile number" value={f.phone} onChange={set('phone')} />
             <Err k="phone" />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="label">Referred By Doctor</label>
+            <input className="input" placeholder="Optional" value={f.doctor} onChange={set('doctor')} />
           </div>
           <div className="sm:col-span-2">
             <label className="label">Address</label>

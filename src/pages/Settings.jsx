@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ImagePlus, Save } from 'lucide-react';
 import { useApp } from '../context/AppContext.jsx';
 import PageHeader from '../components/PageHeader.jsx';
+import LetterHead from '../components/LetterHead.jsx';
 
 export default function Settings() {
   const { settings, setSettings, toast } = useApp();
@@ -50,11 +51,7 @@ export default function Settings() {
           </div>
           <div className="card p-6 text-sm">
             <h3 className="font-semibold text-navy-900 mb-2">Header preview</h3>
-            <div className="rounded-xl bg-navy-900 text-white p-4">
-              <div className="font-bold text-sm leading-tight">{f.labName}</div>
-              <div className="text-xs text-blue-100 mt-1">{f.address}</div>
-              <div className="text-xs text-blue-100">{f.phone}</div>
-            </div>
+            <div className="rounded-xl border border-slate-200 overflow-hidden"><LetterHead settings={f} /></div>
           </div>
           <div className="flex gap-3">
             <button type="button" className="btn-secondary flex-1" onClick={() => { setF(settings); toast('Changes discarded', 'info'); }}>Discard</button>

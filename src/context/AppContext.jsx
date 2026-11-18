@@ -45,7 +45,7 @@ export function AppProvider({ children }) {
     const test = tests.find((t) => t.id === testId);
     const nextNum = Math.max(...reports.map((r) => Number(r.id.split('-')[1]))) + 1;
     const report = {
-      id: `RPT-${nextNum}`, patientId, testId, testName: test.name, date: TODAY, status: 'Final', results,
+      id: `RPT-${nextNum}`, patientId, testId, testName: test.name, category: test.category, date: TODAY, status: 'Final', results,
     };
     setReports((r) => [report, ...r]);
     if (pendingId) setPending((p) => p.filter((x) => x.id !== pendingId));
