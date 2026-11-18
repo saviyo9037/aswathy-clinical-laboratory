@@ -4,7 +4,6 @@ import {
   Users, UserCheck, TestTube2, FileCheck2, Clock, UserPlus, ClipboardEdit, FileText, FlaskConical, ArrowRight,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext.jsx';
-import PageHeader from '../components/PageHeader.jsx';
 import ReportModal from '../components/ReportModal.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 import { fmtDate, initials } from '../lib/utils.js';
@@ -26,11 +25,11 @@ export default function Dashboard() {
   const todayTests = todayReports.length + pending.filter((x) => x.date === today).length;
 
   const stats = [
-    { label: 'Total Patients', value: patients.length, icon: Users, tone: 'bg-brand-50 text-brand-600' },
-    { label: "Today's Patients", value: todayPatients.size, icon: UserCheck, tone: 'bg-emerald-50 text-emerald-600' },
-    { label: "Today's Tests", value: todayTests, icon: TestTube2, tone: 'bg-violet-50 text-violet-600' },
-    { label: 'Reports Generated', value: reports.length, icon: FileCheck2, tone: 'bg-sky-50 text-sky-600' },
-    { label: 'Pending Reports', value: pending.length, icon: Clock, tone: 'bg-amber-50 text-amber-600' },
+    { label: 'Total Patients', value: patients.length, icon: Users, tone: 'bg-brand-100 text-brand-600' },
+    { label: "Today's Patients", value: todayPatients.size, icon: UserCheck, tone: 'bg-lab-greenSoft text-lab-green' },
+    { label: "Today's Tests", value: todayTests, icon: TestTube2, tone: 'bg-brand-100 text-brand-700' },
+    { label: 'Reports Generated', value: reports.length, icon: FileCheck2, tone: 'bg-lab-greenSoft text-lab-green' },
+    { label: 'Pending Reports', value: pending.length, icon: Clock, tone: 'bg-lab-redSoft text-lab-red' },
   ];
 
   const activity = useMemo(() => {
@@ -55,24 +54,46 @@ export default function Dashboard() {
 
   return (
     <>
-      <PageHeader title="Welcome back, Admin" subtitle="Here is what is happening in the laboratory today." />
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-900 via-navy-700 to-brand-600 text-white p-6 sm:p-8 mb-6 shadow-card">
+        <div className="absolute left-0 right-0 bottom-0 h-1.5 bg-gradient-to-r from-lab-red via-lab-red to-lab-green" />
+        <div className="absolute -right-10 -top-16 h-56 w-56 rounded-full bg-white/10" />
+        <div className="absolute right-24 -bottom-20 h-48 w-48 rounded-full bg-white/5" />
+        <div className="relative flex flex-wrap items-center justify-between gap-5">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-widest text-blue-200">
+              {new Date(today + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold mt-2">Welcome back, Admin</h2>
+            <p className="text-blue-100 mt-1.5 text-sm sm:text-base">
+              {pending.length > 0
+                ? `${pending.length} sample${pending.length > 1 ? 's are' : ' is'} waiting for results today.`
+                : 'All samples are processed. Great work today.'}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <button onClick={() => navigate('/register')} className="btn bg-white text-navy-900 hover:bg-blue-50"><UserPlus size={16} /> Register Patient</button>
+            <button onClick={() => navigate('/results')} className="btn bg-white/15 text-white border border-white/25 hover:bg-white/25"><ClipboardEdit size={16} /> Enter Results</button>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        {stats.map(({ label, value, icon: Icon, tone }) => (
-          <div key={label} className="card p-4 sm:p-5">
-            <div className={`h-10 w-10 rounded-xl grid place-items-center ${tone}`}><Icon size={20} /></div>
-            <div className="mt-4 text-3xl font-bold text-navy-900">{value}</div>
-            <div className="text-xs text-slate-500 mt-1">{label}</div>
+        {stats.map(({ label, value, icon: Icon, tone }, i) => (
+          <div key={label} className={`card card-hover p-4 sm:p-5 relative overflow-hidden ${i === 4 ? 'col-span-2 lg:col-span-1' : ''}`}>
+            <div className={`absolute -right-4 -top-4 h-20 w-20 rounded-full opacity-60 ${tone.split(' ')[0]}`} />
+            <div className={`relative h-11 w-11 rounded-2xl grid place-items-center ${tone}`}><Icon size={21} /></div>
+            <div className="relative mt-4 text-3xl font-bold text-navy-900 tracking-tight">{value}</div>
+            <div className="relative text-xs font-medium text-slate-500 mt-1">{label}</div>
           </div>
         ))}
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {actions.map(({ label, icon: Icon, to }) => (
-          <button key={to} onClick={() => navigate(to)} className="card p-4 flex items-center gap-3 hover:border-brand-200 hover:shadow-lg transition text-left">
-            <span className="h-10 w-10 rounded-xl bg-navy-900 text-white grid place-items-center"><Icon size={18} /></span>
+          <button key={to} onClick={() => navigate(to)} className="card card-hover p-4 flex items-center gap-3 text-left group">
+            <span className="h-10 w-10 rounded-xl bg-navy-800 text-white grid place-items-center"><Icon size={18} /></span>
             <span className="font-semibold text-sm flex-1">{label}</span>
-            <ArrowRight size={16} className="text-slate-400" />
+            <ArrowRight size={16} className="text-slate-300 transition group-hover:text-brand-600 group-hover:translate-x-0.5" />
           </button>
         ))}
       </div>

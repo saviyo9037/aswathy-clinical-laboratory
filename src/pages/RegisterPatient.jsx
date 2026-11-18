@@ -74,7 +74,7 @@ export default function RegisterPatient() {
 
         <div className="space-y-4">
           {created ? (
-            <div className="card p-6 border-emerald-200 bg-emerald-50/50">
+            <div className="card p-6 border-lab-green/30 bg-lab-greenSoft/60">
               <CheckCircle2 className="text-emerald-500" size={28} />
               <h3 className="font-semibold mt-3">Patient registered</h3>
               <div className="mt-3 text-sm space-y-1">

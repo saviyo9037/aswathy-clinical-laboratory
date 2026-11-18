@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { ageSex, categoryLabel, flagOf, fmtDMY } from './utils.js';
+import logo from '../assets/logo.png?inline';
 
 const BLUE = [43, 108, 190];
 const GREEN = [61, 110, 52];
@@ -13,38 +14,19 @@ export function buildReportPDF({ report, patient, settings }) {
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
 
-  // Letterhead (placeholder logo mark drawn as text)
-  doc.setFont('times', 'bolditalic');
-  doc.setFontSize(30);
-  doc.setTextColor(...RED);
-  doc.text('AS', 24, 24);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(26);
-  const brand = 'SWATHY';
-  const bw = doc.getTextWidth(brand);
-  const x0 = W / 2 - (bw + 14) / 2 + 10;
-  doc.setFillColor(...RED);
-  doc.rect(x0 - 11, 19.5, 9, 2.2, 'F');
-  doc.rect(x0 - 7.9, 16, 2.8, 9, 'F');
-  doc.setTextColor(...BLUE);
-  doc.setFontSize(30);
-  doc.text('A', x0 - 1, 24.5);
-  doc.setFontSize(26);
-  doc.text(brand, x0 + 9, 24.5);
+  // Letterhead: the lab's logo image
+  const logoW = 22;
+  doc.addImage(logo, 'PNG', (W - logoW) / 2, 14, logoW, logoW * (197 / 401));
 
-  doc.setFont('times', 'bold');
-  doc.setFontSize(14);
-  doc.setTextColor(...GREEN);
-  doc.text('COMPUTERISED CLINICAL LABORATORY', W / 2, 32, { align: 'center' });
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10.5);
   doc.setTextColor(...BLUE);
-  doc.text(settings.address, W / 2, 38, { align: 'center' });
+  doc.text(settings.address, W / 2, 30, { align: 'center' });
   doc.setFontSize(8.5);
-  doc.text(`Mob : ${settings.phone}, email: ${settings.email}`, W / 2, 43.5, { align: 'center' });
+  doc.text(`Mob : ${settings.phone}, email: ${settings.email}`, W / 2, 35.5, { align: 'center' });
   doc.setDrawColor(...RED);
   doc.setLineWidth(0.5);
-  doc.line(0, 47, W, 47);
+  doc.line(0, 40, W, 40);
 
   // Patient block
   doc.setFont('helvetica', 'normal');
